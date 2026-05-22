@@ -1,0 +1,331 @@
+/* ============================================================
+   Jobs.css — Responsive filters + nav-dropdown coordination
+   ============================================================ */
+
+.jobs-page {
+  padding: 40px 20px;
+  background: var(--page-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.jobs-title {
+  margin-bottom: 30px;
+  color: var(--text-h);
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 800;
+  text-align: center;
+}
+
+.jobs-empty {
+  color: var(--text-muted);
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+/* ---------- Filter panel ---------- */
+.filter-box {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--filter-bg);
+  border: 1px solid var(--border);
+  padding: clamp(14px, 2.5vw, 22px);
+  border-radius: 16px;
+  margin-bottom: 36px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: padding 0.2s ease, gap 0.2s ease;
+}
+
+.filter-main {
+  width: 100%;
+  min-width: 0;
+}
+
+.filter-inputs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.filter-input,
+.filter-select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--filter-input-bg);
+  color: var(--filter-input-text);
+  font-size: 13px;
+  outline: none;
+  transition: box-shadow 0.2s ease, font-size 0.2s ease, padding 0.2s ease;
+}
+
+.filter-input::placeholder {
+  color: var(--placeholder);
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  box-shadow: 0 0 0 3px rgba(170, 59, 255, 0.12);
+}
+
+.filter-select {
+  border: 2px solid var(--border-strong);
+  cursor: pointer;
+  appearance: none;
+  background-color: var(--filter-input-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+}
+
+/* Sort + buttons row on desktop */
+.filter-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-sidebar .filter-select {
+  width: auto;
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.search-btn {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 18px;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  background: var(--btn-secondary-bg);
+  color: #fff;
+}
+
+.search-btn-ai {
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  color: #fff;
+  font-weight: 700;
+}
+
+.search-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.search-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ---------- Job grid ---------- */
+.jobs-grid {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(16px, 3vw, 28px);
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.jobs-card-wrap {
+  display: flex;
+  height: 100%;
+}
+
+/* ========== Tablet ========== */
+@media (max-width: 1024px) {
+  .filter-inputs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .filter-input,
+  .filter-select {
+    font-size: 12px;
+    padding: 10px 11px;
+  }
+
+  .search-btn {
+    font-size: 12px;
+    padding: 9px 14px;
+  }
+}
+
+/* ========== Mobile: inputs left, actions right ========== */
+@media (max-width: 768px) {
+  .jobs-page {
+    padding: 16px 12px 28px;
+    align-items: stretch;
+  }
+
+  .jobs-title {
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+
+  .filter-box {
+    display: grid;
+    grid-template-columns: 1fr minmax(96px, 30%);
+    grid-template-areas: "main sidebar";
+    align-items: start;
+    gap: 10px;
+    padding: 10px !important;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    background: var(--filter-bg);
+  }
+
+  .filter-main {
+    grid-area: main;
+  }
+
+  .filter-inputs {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+
+  .filter-input {
+    font-size: 11px;
+    padding: 7px 9px;
+    border-radius: 8px;
+  }
+
+  .filter-sidebar {
+    grid-area: sidebar;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 7px;
+    margin-left: 0;
+  }
+
+  .filter-sidebar .filter-select {
+    width: 100%;
+    min-width: unset;
+    font-size: 10px;
+    padding: 7px 26px 7px 8px;
+    border-radius: 8px;
+    background-position: right 6px center;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .search-btn {
+    width: 100%;
+    font-size: 10px;
+    padding: 7px 6px;
+    border-radius: 8px;
+  }
+
+  .jobs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+    padding: 0;
+  }
+}
+
+/* When hamburger menu is open: stack actions below inputs (avoids top-right clash) */
+@media (max-width: 768px) {
+  body.nav-menu-open .filter-box {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main"
+      "sidebar";
+  }
+
+  body.nav-menu-open .filter-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  body.nav-menu-open .filter-sidebar .filter-select {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  body.nav-menu-open .filter-actions {
+    flex-direction: row;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  body.nav-menu-open .filter-actions .search-btn {
+    flex: 1;
+  }
+}
+
+/* ========== Small phones ========== */
+@media (max-width: 480px) {
+  .filter-box {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main"
+      "sidebar";
+  }
+
+  .filter-inputs {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .filter-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .filter-sidebar .filter-select {
+    flex: 1 1 100%;
+    font-size: 11px;
+  }
+
+  .filter-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .search-btn {
+    flex: 1;
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .filter-input {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+
+  .search-btn {
+    font-size: 10px;
+    padding: 7px 8px;
+  }
+}

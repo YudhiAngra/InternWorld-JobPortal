@@ -1,0 +1,127 @@
+/* (Your custom styling remains unchanged) */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  min-height: 100vh;
+  padding: 20px;
+  animation: fadeIn 1s ease-in;
+}
+
+h1 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 30px;
+  animation: slideDown 0.7s ease-out;
+}
+
+.post-job-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.post-job-form label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  display: block;
+}
+
+.post-job-form input,
+.post-job-form textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-job-form input:focus,
+.post-job-form textarea:focus {
+  border-color: #0077cc;
+  box-shadow: 0 0 8px rgba(0, 119, 204, 0.3);
+  outline: none;
+}
+
+.post-job-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.post-job-form button {
+  width: 100%;
+  padding: 14px;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.post-job-form button:hover {
+  background-color: #005fa3;
+  transform: translateY(-2px);
+}
+
+.post-job-form button:active {
+  transform: scale(0.98);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .post-job-form {
+    padding: 25px 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}

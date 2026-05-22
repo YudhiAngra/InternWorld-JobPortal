@@ -1,0 +1,168 @@
+/* Shared page surfaces — auth, landing helpers */
+
+.auth-container {
+  display: flex;
+  min-height: calc(100vh - 65px);
+  background: var(--page-bg);
+}
+
+.auth-left {
+  flex: 1;
+  background: var(--auth-panel-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-right {
+  flex: 1;
+  background: var(--auth-brand-bg);
+  color: var(--footer-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card {
+  background: var(--auth-card-bg);
+  color: var(--auth-card-text);
+  padding: 40px;
+  border-radius: 16px;
+  width: 350px;
+  max-width: calc(100% - 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+}
+
+.auth-card h2 {
+  text-align: center;
+  color: var(--text-h);
+}
+
+.auth-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.auth-input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--input-bg);
+  color: var(--input-text);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+.auth-btn {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--auth-btn-bg);
+  color: var(--accent-text);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+[data-theme="light"] .auth-btn {
+  color: #fff;
+}
+
+.auth-link-text {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.auth-link {
+  color: var(--text-h);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-link:hover {
+  color: var(--accent);
+}
+
+.brand-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--footer-text);
+}
+
+.brand-text {
+  margin-top: 10px;
+  opacity: 0.85;
+  color: var(--footer-text);
+}
+
+/* Landing */
+.landing-page {
+  background: var(--page-bg);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+.landing-hero {
+  width: 100%;
+  background: var(--hero-gradient);
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease infinite;
+  padding: 90px 0;
+}
+
+.landing-hero-title {
+  color: var(--text-h);
+}
+
+.landing-hero-text {
+  color: var(--text-muted);
+}
+
+.landing-card {
+  background: var(--surface-elevated);
+  color: var(--text-h);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.landing-card-desc {
+  color: var(--text-muted);
+}
+
+.landing-job-card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.landing-how-card {
+  background: var(--card-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+}
+
+.landing-cta {
+  background: var(--navbar-bg);
+  color: var(--navbar-text);
+}
+
+.landing-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}

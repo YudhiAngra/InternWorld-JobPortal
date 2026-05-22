@@ -1,0 +1,179 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 60%);
+  color: #222;
+}
+
+/* Fixed Header */
+header {
+  background: linear-gradient(90deg, #004e92, #000428);
+  color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 25px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to right, #000066, #000033);
+  color: white;
+  padding: 100px 20px 80px;
+  text-align: center;
+  margin-top: 60px;
+  border-radius: 0 0 40px 40px;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Form Wrapper */
+.categories {
+  display: flex;
+  justify-content: center;
+  margin-top: -60px;
+  padding: 40px 20px;
+}
+
+/* Form Container */
+.post-job-form {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 640px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e3e6f0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: transform 0.3s ease;
+}
+
+.post-job-form:hover {
+  transform: translateY(-2px);
+}
+
+/* Input & Textarea */
+.post-job-form input,
+.post-job-form textarea {
+  padding: 14px 18px;
+  font-size: 1em;
+  border: 2px solid #a9c1ff;
+  border-radius: 12px;
+  background: #fdfdff;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.post-job-form input:focus,
+.post-job-form textarea:focus {
+  border-color: #03045e;
+  background: #ffffff;
+  outline: none;
+}
+
+/* Placeholder styling */
+.post-job-form input::placeholder,
+.post-job-form textarea::placeholder {
+  color: #777;
+  font-weight: 500;
+}
+
+/* Button Styling */
+.post-job-form button {
+  padding: 14px;
+  background-color: #03045e;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(3, 4, 94, 0.25);
+  transition: all 0.3s ease;
+}
+
+.post-job-form button:hover {
+  background-color: #021f60;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px 50px;
+    font-size: 1.2rem;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .post-job-form {
+    padding: 30px 20px;
+    border-radius: 16px;
+  }
+
+  .post-job-form input,
+  .post-job-form textarea {
+    font-size: 0.95em;
+  }
+
+  .post-job-form button {
+    font-size: 1em;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .post-job-form {
+    padding: 24px 16px;
+  }
+
+  .post-job-form input,
+  .post-job-form textarea {
+    padding: 12px;
+    font-size: 0.9em;
+  }
+
+  .post-job-form button {
+    font-size: 0.95em;
+    padding: 10px;
+  }
+}
