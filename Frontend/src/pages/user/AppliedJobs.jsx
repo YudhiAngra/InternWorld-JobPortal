@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./AppliedJobs.css";
+import { API_URL } from "../../config";
 
 function AppliedJobs() {
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/user/applied-jobs", {
+    fetch(`${API_URL}/user/applied-jobs`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -45,9 +46,7 @@ function AppliedJobs() {
 
               <div className="applied-job-status-row">
                 <span className="applied-job-label">Status: </span>
-                <span
-                  className={`applied-job-status ${statusClass(app.status)}`}
-                >
+                <span className={`applied-job-status ${statusClass(app.status)}`}>
                   {(app.status || "pending").toUpperCase()}
                 </span>
               </div>

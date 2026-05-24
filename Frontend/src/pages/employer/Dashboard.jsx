@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, Legend,
 } from "recharts";
 import { useTheme } from "../../context/ThemeContext";
 import "./employer-pages.css";
+import { API_URL } from "../../config";
 
 const PIE_COLORS = ["#94a3b8", "#22c55e", "#ef4444"];
 
@@ -30,7 +23,7 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/employer/jobs", {
+    fetch(`${API_URL}/employer/jobs`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -41,7 +34,7 @@ function Dashboard() {
   const updateStatus = async (jobId, userId, status) => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/employer/applications/${jobId}/${userId}`,
+        `${API_URL}/employer/applications/${jobId}/${userId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -67,22 +60,18 @@ function Dashboard() {
 
   const totalJobs = jobs.length;
   const totalApplications = jobs.reduce(
-    (sum, job) => sum + (job.applications?.length || 0),
-    0
+    (sum, job) => sum + (job.applications?.length || 0), 0
   );
 
   const barData = jobs.map((job) => ({
-    name:
-      job.title.substring(0, 15) + (job.title.length > 15 ? "..." : ""),
+    name: job.title.substring(0, 15) + (job.title.length > 15 ? "..." : ""),
     applicants: job.applications?.length || 0,
   }));
 
   const statusCounts = { pending: 0, accepted: 0, rejected: 0 };
   jobs.forEach((job) => {
     job.applications?.forEach((app) => {
-      if (statusCounts[app.status] !== undefined) {
-        statusCounts[app.status]++;
-      }
+      if (statusCounts[app.status] !== undefined) statusCounts[app.status]++;
     });
   });
 
@@ -132,20 +121,9 @@ function Dashboard() {
             <h3>Overall Status</h3>
             <ResponsiveContainer width="100%" height={250}>
               <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
+                <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
                   {pieData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={PIE_COLORS[index % PIE_COLORS.length]}
-                    />
+                    <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                   ))}
                 </Pie>
                 <Tooltip contentStyle={tooltipStyle} />
@@ -163,72 +141,33 @@ function Dashboard() {
           <div key={job._id} className="employer-job-card">
             <div style={{ marginBottom: "15px" }}>
               <h2>{job.title}</h2>
-              <p className="employer-meta">
-                {job.company} • {job.location}
-              </p>
+              <p className="employer-meta">{job.company} • {job.location}</p>
               {job.deadline && (
-                <p
-                  className={
-                    new Date() > new Date(job.deadline)
-                      ? "employer-meta employer-meta--danger"
-                      : "employer-meta"
-                  }
-                >
+                <p className={new Date() > new Date(job.deadline) ? "employer-meta employer-meta--danger" : "employer-meta"}>
                   Deadline:{" "}
-                  {new Date(job.deadline).toLocaleDateString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
+                  {new Date(job.deadline).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
                   {new Date() > new Date(job.deadline) && " (Closed)"}
                 </p>
               )}
-              <p className="employer-meta">
-                {job.applications?.length || 0} Applicants
-              </p>
+              <p className="employer-meta">{job.applications?.length || 0} Applicants</p>
             </div>
 
             {job.applications?.length === 0 ? (
               <p className="employer-meta">No applicants</p>
             ) : (
               job.applications.map((app) => {
-                const isFinal =
-                  app.status === "accepted" || app.status === "rejected";
-
+                const isFinal = app.status === "accepted" || app.status === "rejected";
                 return (
                   <div key={app._id} className="employer-app-row">
                     <div>
-                      <p className="employer-app-name">
-                        {app.user?.username || app.user?.email || "User"}
-                      </p>
-                      <span
-                        className={`employer-status-badge ${statusClass(app.status)}`}
-                      >
+                      <p className="employer-app-name">{app.user?.username || app.user?.email || "User"}</p>
+                      <span className={`employer-status-badge ${statusClass(app.status)}`}>
                         {app.status.toUpperCase()}
                       </span>
                     </div>
-
                     <div className="employer-btn-group">
-                      <button
-                        type="button"
-                        className="employer-btn-accept"
-                        disabled={isFinal}
-                        onClick={() =>
-                          updateStatus(job._id, app.user?._id, "accepted")
-                        }
-                      >
-                        Accept
-                      </button>
-                      <button
-                        type="button"
-                        className="employer-btn-reject"
-                        disabled={isFinal}
-                        onClick={() =>
-                          updateStatus(job._id, app.user?._id, "rejected")
-                        }
-                      >
-                        Reject
-                      </button>
+                      <button type="button" className="employer-btn-accept" disabled={isFinal} onClick={() => updateStatus(job._id, app.user?._id, "accepted")}>Accept</button>
+                      <button type="button" className="employer-btn-reject" disabled={isFinal} onClick={() => updateStatus(job._id, app.user?._id, "rejected")}>Reject</button>
                     </div>
                   </div>
                 );

@@ -22,10 +22,6 @@ function Login() {
     try {
       const res = await API.post("/auth/login", form);
 
-      await fetch("http://localhost:4000/api/auth/me", {
-        credentials: "include",
-      });
-
       localStorage.setItem("user", JSON.stringify(res.data.user));
       window.dispatchEvent(new Event("authChange"));
 
@@ -73,7 +69,7 @@ function Login() {
           </button>
 
           <p className="auth-link-text">
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <span className="auth-link" onClick={() => navigate("/register")}>
               Sign up
             </span>

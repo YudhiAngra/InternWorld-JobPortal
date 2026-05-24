@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Landing.css";
+import { API_URL } from "../../config";
 
 const ROLE_CARDS = [
   {
@@ -67,7 +68,7 @@ function Landing() {
 
   useEffect(() => {
     const fetchJobs = () => {
-      fetch("http://localhost:4000/api/jobs")
+      fetch(`${API_URL}/jobs`)
         .then((res) => res.json())
         .then((data) => {
           const sorted = [...(Array.isArray(data) ? data : [])]
@@ -181,20 +182,11 @@ function Landing() {
 
       <section className="landing-roles landing-reveal">
         {ROLE_CARDS.map((card) => (
-          <div
-            key={card.title}
-            className={`landing-role-card ${card.variant}`}
-          >
-            <span className="landing-role-icon" aria-hidden="true">
-              {card.icon}
-            </span>
+          <div key={card.title} className={`landing-role-card ${card.variant}`}>
+            <span className="landing-role-icon" aria-hidden="true">{card.icon}</span>
             <h3 className="landing-role-title">{card.title}</h3>
             <p className="landing-role-desc">{card.desc}</p>
-            <button
-              type="button"
-              className="landing-role-btn"
-              onClick={() => handleRoleNavigation(card)}
-            >
+            <button type="button" className="landing-role-btn" onClick={() => handleRoleNavigation(card)}>
               {card.btnText}
             </button>
           </div>
@@ -204,14 +196,10 @@ function Landing() {
       <section className="landing-ai-section landing-reveal">
         <div className="landing-ai-panel">
           <span className="landing-ai-badge">
-            <span className="landing-ai-badge-icon" aria-hidden="true">
-              ✨
-            </span>
+            <span className="landing-ai-badge-icon" aria-hidden="true">✨</span>
             AI-Powered Job Matching
           </span>
-          <h2 className="landing-ai-heading">
-            Smart Jobs Matched to Your Profile
-          </h2>
+          <h2 className="landing-ai-heading">Smart Jobs Matched to Your Profile</h2>
           <p className="landing-ai-subtext">
             Upload your resume once, let AI understand your unique skills, and discover opportunities that perfectly align with your career goals — all in one seamless experience.
           </p>
@@ -225,11 +213,7 @@ function Landing() {
                     <h4>{step.title}</h4>
                     <p>{step.desc}</p>
                     {step.link && step.path && (
-                      <button
-                        type="button"
-                        className="landing-ai-step-link"
-                        onClick={() => handleSeekerPath(step.path)}
-                      >
+                      <button type="button" className="landing-ai-step-link" onClick={() => handleSeekerPath(step.path)}>
                         {step.link} →
                       </button>
                     )}
@@ -273,9 +257,7 @@ function Landing() {
         </p>
 
         {jobs.length === 0 ? (
-          <p style={{ marginTop: "20px", color: "var(--text-muted)" }}>
-            Loading jobs...
-          </p>
+          <p style={{ marginTop: "20px", color: "var(--text-muted)" }}>Loading jobs...</p>
         ) : (
           <div
             className="landing-jobs-scroll"
@@ -296,9 +278,7 @@ function Landing() {
                   role="button"
                   tabIndex={0}
                   onClick={() => navigate("/login")}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" && navigate("/login")
-                  }
+                  onKeyDown={(e) => e.key === "Enter" && navigate("/login")}
                 >
                   <h3>{job.title}</h3>
                   <p>{job.company}</p>
@@ -329,11 +309,7 @@ function Landing() {
       <section className="landing-cta">
         <h2>Start Your Journey Today</h2>
         <p>Join InternWorld and unlock opportunities</p>
-        <button
-          type="button"
-          className="landing-cta-btn"
-          onClick={() => navigate("/register")}
-        >
+        <button type="button" className="landing-cta-btn" onClick={() => navigate("/register")}>
           Get Started
         </button>
       </section>

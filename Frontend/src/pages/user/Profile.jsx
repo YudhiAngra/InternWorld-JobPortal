@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { API_URL } from "../../config";
 
 function Profile() {
   const [file, setFile] = useState(null);
@@ -17,7 +18,7 @@ function Profile() {
     formData.append("resume", file);
 
     try {
-      const res = await fetch("http://localhost:4000/api/user/upload-resume", {
+      const res = await fetch(`${API_URL}/user/upload-resume`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -28,18 +29,18 @@ function Profile() {
       } else {
         toast.error(data.error || "Upload failed");
       }
-    } catch (err) {
+    } catch {
       toast.error("An error occurred during upload");
     }
   };
 
   const saveSkills = async (e) => {
     e.preventDefault();
-    const skillsArray = skills.split(",").map(s => s.trim()).filter(s => s);
+    const skillsArray = skills.split(",").map((s) => s.trim()).filter((s) => s);
     if (skillsArray.length === 0) return toast.error("Please enter some skills");
 
     try {
-      const res = await fetch("http://localhost:4000/api/user/skills", {
+      const res = await fetch(`${API_URL}/user/skills`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ skills: skillsArray }),
@@ -50,7 +51,7 @@ function Profile() {
       } else {
         toast.error("Failed to update skills");
       }
-    } catch (err) {
+    } catch {
       toast.error("An error occurred");
     }
   };
@@ -76,11 +77,11 @@ function Profile() {
           Enter your skills separated by commas (e.g., React, Node.js, Python).
         </p>
         <form onSubmit={saveSkills} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          <textarea 
-            value={skills} 
-            onChange={(e) => setSkills(e.target.value)} 
+          <textarea
+            value={skills}
+            onChange={(e) => setSkills(e.target.value)}
             placeholder="React, Node.js, Python..."
-            style={{ ...inputStyle, minHeight: "80px", resize: "vertical" }} 
+            style={{ ...inputStyle, minHeight: "80px", resize: "vertical" }}
           />
           <button type="submit" className="counter" style={{ width: "fit-content" }}>Save Skills</button>
         </form>
@@ -97,7 +98,7 @@ const cardStyle = {
   marginBottom: "20px",
   boxShadow: "var(--shadow)",
   width: "100%",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
 };
 
 const inputStyle = {
@@ -106,7 +107,7 @@ const inputStyle = {
   border: "1px solid var(--border)",
   fontFamily: "inherit",
   background: "var(--code-bg)",
-  color: "var(--text-h)"
+  color: "var(--text-h)",
 };
 
 export default Profile;

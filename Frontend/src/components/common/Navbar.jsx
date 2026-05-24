@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useTheme } from "../../context/ThemeContext";
+import { API_URL } from "../../config";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,14 +14,13 @@ function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  // ✅ LOAD USER (initial + backend sync)
   useEffect(() => {
     const loadUser = async () => {
       const storedUser = localStorage.getItem("user");
       setUser(storedUser ? JSON.parse(storedUser) : null);
 
       try {
-        const res = await fetch("http://localhost:4000/api/auth/me", {
+        const res = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
 
@@ -41,7 +41,6 @@ function Navbar() {
     loadUser();
   }, []);
 
-  // 🔥 LISTEN FOR LOGIN / LOGOUT
   useEffect(() => {
     const syncUser = () => {
       const storedUser = localStorage.getItem("user");
@@ -52,7 +51,6 @@ function Navbar() {
     return () => window.removeEventListener("authChange", syncUser);
   }, []);
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -63,19 +61,16 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Let pages adjust layout while mobile nav dropdown is open
   useEffect(() => {
     document.body.classList.toggle("nav-menu-open", menuOpen);
     return () => document.body.classList.remove("nav-menu-open");
   }, [menuOpen]);
 
-  // 🔥 PREVENT FLICKER
   if (user === undefined) return null;
 
-  // ✅ LOGOUT HANDLER
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:4000/api/auth/logout", {
+      await fetch(`${API_URL}/auth/logout`, {
         credentials: "include",
       });
 
@@ -90,7 +85,6 @@ function Navbar() {
     }
   };
 
-  // Nav link items depending on auth state
   const navLinks = () => {
     if (user === null) {
       return (
@@ -129,7 +123,6 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* Brand */}
       <Link to="/" className="navbar-brand" onClick={closeMenu}>
         <span className="brand-icon">🌐</span>
         InternWorld
@@ -149,25 +142,23 @@ function Navbar() {
         </button>
 
         <div className="hamburger-wrapper" ref={menuRef}>
-        <button
-          className={`hamburger-btn ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
-        >
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </button>
+          <button
+            className={`hamburger-btn ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+          >
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </button>
 
-        {/* Dropdown panel */}
-        <div className={`mobile-dropdown ${menuOpen ? "open" : ""}`}>
-          {navLinks()}
-        </div>
+          <div className={`mobile-dropdown ${menuOpen ? "open" : ""}`}>
+            {navLinks()}
+          </div>
         </div>
       </div>
 
-      {/* Backdrop overlay */}
       {menuOpen && (
         <div className="nav-backdrop" onClick={closeMenu} aria-hidden="true" />
       )}

@@ -117,6 +117,7 @@ router.get("/applications", async (req, res) => {
           },
           status: app.status,
           coverLetter: app.coverLetter,
+          resumeUrl: app.resumeUrl,
           appliedAt: app.appliedAt,
         });
       });

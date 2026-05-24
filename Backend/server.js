@@ -14,26 +14,26 @@ app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//CORS (React frontend)
+// CORS
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: process.env.FRONTEND_URL || "http://localhost:5174",
     credentials: true,
   })
 );
 
-//SESSION CONFIG (FINAL)
+// SESSION
 app.use(
   session({
-    name: "interworld.sid", // default session cookie name
-    secret: "your-secret-key",
+    name: "interworld.sid",
+    secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false,          // true only in production (HTTPS)
+      secure: process.env.NODE_ENV === "production",  // true on Render (HTTPS)
       httpOnly: true,
-      sameSite: "lax",        // 🔥 important for cross-origin
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",  // "none" needed for cross-origin on Render
+      maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
