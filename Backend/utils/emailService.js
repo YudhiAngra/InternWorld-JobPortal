@@ -44,3 +44,4 @@ const sendApplicationStatusEmail = async (userEmail, jobTitle, company, status) 
 };
 
 module.exports = { sendApplicationStatusEmail };
+
